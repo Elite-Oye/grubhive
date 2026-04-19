@@ -1,8 +1,20 @@
 {
   "name": "grubhive",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
+  "description": "A premium, fully-responsive React website for The Grub Hive. Built by **Elyte**.",
+  "homepage": "https://github.com/Elite-Oye/grubhive#readme",
+  "bugs": {
+    "url": "https://github.com/Elite-Oye/grubhive/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Elite-Oye/grubhive.git"
+  },
+  "license": "ISC",
+  "author": "",
   "type": "module",
+  "main": "vite.config.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
