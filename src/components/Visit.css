@@ -1,0 +1,207 @@
+.visit {
+  position: relative;
+  overflow: hidden;
+}
+
+.visit-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.visit-title {
+  font-size: clamp(2.2rem, 5.5vw, 3.75rem);
+  margin-top: 16px;
+  font-weight: 400;
+}
+
+.visit-title-accent {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.visit-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  align-items: stretch;
+}
+
+@media (min-width: 960px) {
+  .visit-grid {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 40px;
+  }
+}
+
+/* MAP */
+.visit-map {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  min-height: 420px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lift);
+}
+
+.visit-map iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  filter: saturate(1.1) contrast(1.05);
+}
+
+[data-theme='dark'] .visit-map iframe {
+  filter: saturate(0.75) brightness(0.8) contrast(1.1);
+}
+
+.visit-map-pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg-elevated);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ember);
+  box-shadow: 0 6px 20px rgba(229, 72, 40, 0.45);
+  animation: pulse-pin 2.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse-pin {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.12); }
+}
+
+/* INFO */
+.visit-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.visit-card {
+  display: flex;
+  gap: 16px;
+  padding: 24px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.visit-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-soft);
+}
+
+.visit-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.visit-card-body { flex: 1; min-width: 0; }
+
+.visit-card-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.visit-card-val {
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.visit-card-sub {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.visit-hours {
+  list-style: none;
+  margin-top: 8px;
+}
+
+.visit-hours li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  border-bottom: 1px dashed var(--border);
+}
+
+.visit-hours li:last-child { border-bottom: none; }
+
+.visit-hours-today {
+  color: var(--accent) !important;
+  font-weight: 600;
+}
+
+.visit-hours-today span:first-child::before {
+  content: '● ';
+  color: var(--success);
+}
+
+.visit-card-cta {
+  padding: 28px;
+  background: linear-gradient(135deg, var(--honey-400) 0%, var(--ember-500) 100%);
+  color: white;
+  border: none;
+}
+
+[data-theme='dark'] .visit-card-cta {
+  background: linear-gradient(135deg, var(--honey-600) 0%, var(--ember-600) 100%);
+}
+
+.visit-card-cta .visit-card-label { color: rgba(255, 255, 255, 0.85); }
+.visit-card-cta-title { color: white; font-size: 1.3rem; }
+
+.visit-cta-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.visit-card-cta .btn-primary {
+  background: white;
+  color: var(--char-900);
+}
+
+.visit-card-cta .btn-primary:hover {
+  background: var(--bg-subtle);
+  color: var(--char-900);
+}
+
+.visit-card-cta .btn-ghost {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: white;
+}
+
+.visit-card-cta .btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: white;
+  color: white;
+}

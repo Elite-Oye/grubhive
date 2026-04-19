@@ -1,0 +1,191 @@
+// Menu data — edit prices/items to match actual Grub Hive offerings
+// Prices in Naira, photos use Unsplash (high quality, royalty-free food photography)
+
+export const MENU = [
+  // ============ SIGNATURE ============
+  {
+    id: 'jollof-platter',
+    name: 'The Hive Jollof Platter',
+    description: 'Smoky party-style jollof rice, grilled chicken, fried plantain, coleslaw.',
+    price: 6500,
+    category: 'signature',
+    image: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?q=80&w=1600&auto=format&fit=crop',
+    badge: 'Bestseller',
+    spice: 2,
+  },
+  {
+    id: 'grub-rice-bowl',
+    name: 'Grub Special Rice Bowl',
+    description: 'Coconut fried rice, beef strips, sautéed veg, house chili oil.',
+    price: 5800,
+    category: 'signature',
+    image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=1600&auto=format&fit=crop',
+    badge: 'Chef\'s pick',
+    spice: 2,
+  },
+  {
+    id: 'peppered-gizzard',
+    name: 'Honey-Pepper Gizzards',
+    description: 'Tender chicken gizzards, sweet-smoky glaze, fried yam wedges.',
+    price: 5200,
+    category: 'signature',
+    image: 'https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?q=80&w=1600&auto=format&fit=crop',
+    spice: 3,
+  },
+
+  // ============ RICE ============
+  {
+    id: 'jollof-chicken',
+    name: 'Jollof Rice & Chicken',
+    description: 'Classic smoky jollof with a juicy grilled chicken quarter.',
+    price: 4500,
+    category: 'rice',
+    image: 'https://images.unsplash.com/photo-1596560548464-f010549b84d7?q=80&w=1600&auto=format&fit=crop',
+    spice: 2,
+  },
+  {
+    id: 'fried-rice-chicken',
+    name: 'Fried Rice & Chicken',
+    description: 'Vegetable fried rice, seasoned chicken, plantain on the side.',
+    price: 4500,
+    category: 'rice',
+    image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=1600&auto=format&fit=crop',
+    spice: 1,
+  },
+  {
+    id: 'coconut-rice',
+    name: 'Coconut Rice & Fish',
+    description: 'Fragrant coconut rice with crispy pan-fried tilapia.',
+    price: 5200,
+    category: 'rice',
+    image: 'https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?q=80&w=1600&auto=format&fit=crop',
+    spice: 1,
+  },
+
+  // ============ SWALLOW ============
+  {
+    id: 'eba-egusi',
+    name: 'Eba & Egusi',
+    description: 'Fresh eba, rich egusi with spinach, assorted meat.',
+    price: 4200,
+    category: 'swallow',
+    image: 'https://images.unsplash.com/photo-1574484284002-952d92456975?q=80&w=1600&auto=format&fit=crop',
+    spice: 2,
+  },
+  {
+    id: 'pounded-yam',
+    name: 'Pounded Yam & Efo Riro',
+    description: 'Smooth pounded yam with vegetable soup and goat meat.',
+    price: 5500,
+    category: 'swallow',
+    image: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?q=80&w=1600&auto=format&fit=crop',
+    spice: 2,
+  },
+  {
+    id: 'amala-ewedu',
+    name: 'Amala & Ewedu',
+    description: 'Traditional amala with ewedu, gbegiri, and assorted meat.',
+    price: 4800,
+    category: 'swallow',
+    image: 'https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?q=80&w=1600&auto=format&fit=crop',
+    spice: 2,
+  },
+
+  // ============ PASTA ============
+  {
+    id: 'creamy-pasta',
+    name: 'Creamy Chicken Pasta',
+    description: 'Penne tossed in garlic cream sauce with grilled chicken.',
+    price: 5500,
+    category: 'pasta',
+    image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=1600&auto=format&fit=crop',
+    spice: 0,
+  },
+  {
+    id: 'jollof-spaghetti',
+    name: 'Jollof Spaghetti',
+    description: 'Our signature twist — jollof-style spaghetti with shrimp.',
+    price: 5800,
+    category: 'pasta',
+    image: 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=1600&auto=format&fit=crop',
+    badge: 'New',
+    spice: 2,
+  },
+
+  // ============ SNACKS / SIDES ============
+  {
+    id: 'puff-puff',
+    name: 'Puff Puff (6pcs)',
+    description: 'Soft, fluffy, lightly sweetened. Classic Lagos street food.',
+    price: 1200,
+    category: 'snacks',
+    image: 'https://images.unsplash.com/photo-1509365465985-25d11c17e812?q=80&w=1600&auto=format&fit=crop',
+    spice: 0,
+  },
+  {
+    id: 'meat-pie',
+    name: 'Meat Pie',
+    description: 'Flaky pastry, seasoned beef, potatoes, carrots.',
+    price: 1500,
+    category: 'snacks',
+    image: 'https://images.unsplash.com/photo-1565299543923-37dd37887442?q=80&w=1600&auto=format&fit=crop',
+    spice: 0,
+  },
+  {
+    id: 'plantain-side',
+    name: 'Fried Plantain',
+    description: 'Golden, sweet, perfect side to any meal.',
+    price: 1000,
+    category: 'snacks',
+    image: 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?q=80&w=1600&auto=format&fit=crop',
+    spice: 0,
+  },
+  {
+    id: 'moin-moin',
+    name: 'Moin Moin',
+    description: 'Steamed bean pudding, rich with egg and pepper.',
+    price: 1800,
+    category: 'snacks',
+    image: 'https://images.unsplash.com/photo-1574484284002-952d92456975?q=80&w=1600&auto=format&fit=crop',
+    spice: 1,
+  },
+
+  // ============ DRINKS ============
+  {
+    id: 'zobo',
+    name: 'Chilled Zobo',
+    description: 'House-made hibiscus drink with ginger and pineapple.',
+    price: 1500,
+    category: 'drinks',
+    image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?q=80&w=1600&auto=format&fit=crop',
+    spice: 0,
+  },
+  {
+    id: 'smoothie',
+    name: 'Tropical Smoothie',
+    description: 'Mango, pineapple, banana. Blended fresh to order.',
+    price: 2200,
+    category: 'drinks',
+    image: 'https://images.unsplash.com/photo-1553530666-ba11a7da3888?q=80&w=1600&auto=format&fit=crop',
+    spice: 0,
+  },
+  {
+    id: 'chapman',
+    name: 'Chapman',
+    description: 'Classic Nigerian Chapman with angostura and orange.',
+    price: 1800,
+    category: 'drinks',
+    image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?q=80&w=1600&auto=format&fit=crop',
+    spice: 0,
+  },
+];
+
+export const CATEGORIES = [
+  { id: 'all', label: 'All', icon: '🍽️' },
+  { id: 'signature', label: 'Signature', icon: '⭐' },
+  { id: 'rice', label: 'Rice', icon: '🍚' },
+  { id: 'swallow', label: 'Swallow', icon: '🥣' },
+  { id: 'pasta', label: 'Pasta', icon: '🍝' },
+  { id: 'snacks', label: 'Snacks', icon: '🥟' },
+  { id: 'drinks', label: 'Drinks', icon: '🥤' },
+];
