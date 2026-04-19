@@ -9,23 +9,30 @@ import Gallery from './components/Gallery';
 import Visit from './components/Visit';
 import Footer from './components/Footer';
 import Cart from './components/Cart';
+import './App.css'
 
-export default function App() {
+function App() {
+
+
   return (
-    <ThemeProvider>
+    <>
+     <ThemeProvider>
       <CartProvider>
         <Navbar />
-        <main>
+  
           <Hero />
           <About />
           <Menu />
           <WhyDirect />
           <Gallery />
           <Visit />
-        </main>
+        
         <Footer />
         <Cart />
       </CartProvider>
     </ThemeProvider>
-  );
+    </>
+  )
 }
+
+export default App
