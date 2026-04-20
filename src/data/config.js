@@ -6,8 +6,8 @@ export const BRAND = {
   location: 'Ilasamaja, Amuwo Odofin, Lagos',
   address: 'Ilasamaja, Amuwo Odofin 2, Lagos, Nigeria',
   deliveryRadius: 'We deliver across Amuwo Odofin, Mile 2, Festac, Satellite Town, and surrounding areas.',
-  whatsapp: '2348012345678', // update with real number — format: country code + number, no +
-  phone: '+234 801 234 5678',
+  whatsapp: '2348107982490', // update with real number — format: country code + number, no +
+  phone: '+2348107982490',
   instagram: 'https://instagram.com/thegrubhive',
   chowdeck: 'https://chowdeck.com/store/amuwo-odofin-2/restaurants/the-grub-hiveilasamajakqsr1g',
   email: 'hello@thegrubhive.com',
