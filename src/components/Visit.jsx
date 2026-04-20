@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Instagram, Clock, MessageCircle } from 'lucide-react';
+import { MapPin, Phone,  Clock, MessageCircle } from 'lucide-react';
 import { BRAND, whatsappLink } from '../data/config';
 import './Visit.css';
 

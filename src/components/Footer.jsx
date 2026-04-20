@@ -1,4 +1,4 @@
-import { Instagram, MessageCircle, Phone, Mail, ExternalLink } from 'lucide-react';
+import {  MessageCircle, Phone, Mail, ExternalLink } from 'lucide-react';
 import { BRAND, whatsappLink } from '../data/config';
 import './Footer.css';
 
@@ -51,7 +51,7 @@ export default function Footer() {
               <span>{BRAND.phone}</span>
             </a>
             <a href={BRAND.instagram} target="_blank" rel="noopener noreferrer" className="footer-contact-item">
-              <Instagram size={16} />
+              {/* <Instagram size={16} /> */}
               <span>@thegrubhive</span>
             </a>
             <a href={`mailto:${BRAND.email}`} className="footer-contact-item">
