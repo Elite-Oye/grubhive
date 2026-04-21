@@ -30,29 +30,50 @@ export const formatNaira = (n) =>
   `₦${n.toLocaleString('en-NG', { minimumFractionDigits: 0 })}`;
 
 // Build the WhatsApp message from cart items
-export const buildWhatsAppOrder = (cartItems, total, customerName = '', customerAddress = '') => {
-  const lines = [
-    `*New Order — ${BRAND.name}*`,
-    '',
-  ];
+export const DELIVERY_ZONES = [
+  { id: 'amuwo',     label: 'Amuwo Odofin',                fee: 1000 },
+  { id: 'festac',    label: 'Festac',                      fee: 1500 },
+  { id: 'mile2',     label: 'Mile 2',                      fee: 1200 },
+  { id: 'satellite', label: 'Satellite Town',              fee: 1800 },
+  { id: 'ajao',      label: 'Ajao Estate',                 fee: 2000 },
+  { id: 'isolo',     label: 'Isolo',                       fee: 2200 },
+  { id: 'surulere',  label: 'Surulere',                    fee: 2500 },
+  { id: 'other',     label: 'Other — confirm on WhatsApp', fee: null },
+];
 
+export const buildWhatsAppOrder = (cartItems, subtotal, customerName = '', customerAddress = '', orderType = 'delivery', zone = null) => {
+  const lines = [`*New Order — ${BRAND.name}*`, ''];
   if (customerName) lines.push(`*Name:* ${customerName}`);
-  if (customerAddress) lines.push(`*Delivery Address:* ${customerAddress}`);
-  if (customerName || customerAddress) lines.push('');
-
+  lines.push(`*Order Type:* ${orderType === 'pickup' ? 'Pickup 🥡' : 'Delivery 🛵'}`);
+  if (orderType === 'delivery') {
+    if (customerAddress) lines.push(`*Delivery Address:* ${customerAddress}`);
+    if (zone) lines.push(`*Delivery Zone:* ${zone.label}`);
+  }
+  lines.push('');
   lines.push('*Order Details:*');
   cartItems.forEach((item) => {
     lines.push(`• ${item.quantity}× ${item.name} — ${formatNaira(item.price * item.quantity)}`);
   });
+  lines.push('');
+  lines.push(`*Subtotal: ${formatNaira(subtotal)}*`);
 
-  lines.push('');
-  lines.push(`*Total: ${formatNaira(total)}*`);
-  lines.push('');
-  lines.push('Please confirm availability and delivery time. Thank you!');
+  if (orderType === 'pickup') {
+    lines.push(`*Total: ${formatNaira(subtotal)}*`);
+    lines.push('');
+    lines.push(`Please confirm pickup time. Thank you!`);
+  } else if (zone && zone.fee !== null) {
+    lines.push(`*Delivery (${zone.label}): ${formatNaira(zone.fee)}*`);
+    lines.push(`*Total: ${formatNaira(subtotal + zone.fee)}*`);
+    lines.push('');
+    lines.push('Please confirm availability and delivery time. Thank you!');
+  } else {
+    lines.push(`*Delivery fee: to be confirmed*`);
+    lines.push('');
+    lines.push('Please confirm availability, delivery fee, and delivery time. Thank you!');
+  }
 
   return lines.join('\n');
 };
-
 // Build the WhatsApp URL
 export const whatsappLink = (message) =>
   `https://wa.me/${BRAND.whatsapp}?text=${encodeURIComponent(message)}`;

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {  AnimatePresence, motion } from 'framer-motion';
 import { X, Plus, Minus, Trash2, ShoppingBag, MessageCircle } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import { formatNaira, buildWhatsAppOrder, whatsappLink } from '../data/config';
+import { formatNaira, buildWhatsAppOrder, whatsappLink, DELIVERY_ZONES } from '../data/config';
 import './Cart.css';
 
 export default function Cart() {
@@ -12,15 +12,29 @@ export default function Cart() {
     updateQuantity, removeItem, clearCart,
   } = useCart();
 
-  const [customerName, setCustomerName] = useState('');
-  const [customerAddress, setCustomerAddress] = useState('');
+const [customerName, setCustomerName] = useState('');
+const [customerAddress, setCustomerAddress] = useState('');
+const [orderType, setOrderType] = useState('delivery');
+const [zoneId, setZoneId] = useState('');
 
-  const handleCheckout = (e) => {
-    e.preventDefault();
-    if (items.length === 0) return;
-    const message = buildWhatsAppOrder(items, total, customerName, customerAddress);
-    window.open(whatsappLink(message), '_blank');
-  };
+const selectedZone = DELIVERY_ZONES.find((z) => z.id === zoneId) || null;
+const deliveryFee = orderType === 'delivery' && selectedZone && selectedZone.fee !== null
+  ? selectedZone.fee
+  : 0;
+const grandTotal = total + deliveryFee;
+
+// Form is valid if: pickup (just need name) OR delivery (need name + address + zone)
+const isFormValid = customerName && (
+  orderType === 'pickup' ||
+  (orderType === 'delivery' && customerAddress && zoneId)
+);
+
+const handleCheckout = (e) => {
+  e.preventDefault();
+  if (items.length === 0 || !isFormValid) return;
+  const message = buildWhatsAppOrder(items, total, customerName, customerAddress, orderType, selectedZone);
+  window.open(whatsappLink(message), '_blank');
+};
 
   return (
     <AnimatePresence>
@@ -120,7 +134,7 @@ export default function Cart() {
               )}
 
               {items.length > 0 && (
-                <motion.form
+               <motion.form
                   className="cart-form"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -138,17 +152,70 @@ export default function Cart() {
                       required
                     />
                   </div>
+
                   <div className="cart-form-field">
-                    <label htmlFor="cart-address">Delivery address</label>
-                    <textarea
-                      id="cart-address"
-                      placeholder="Street, area, landmark…"
-                      value={customerAddress}
-                      onChange={(e) => setCustomerAddress(e.target.value)}
-                      rows={2}
-                      required
-                    />
+                    <label>Order type</label>
+                    <div className="cart-order-type">
+                      <button
+                        type="button"
+                        className={`cart-order-btn ${orderType === 'delivery' ? 'active' : ''}`}
+                        onClick={() => setOrderType('delivery')}
+                      >
+                        <span className="cart-order-emoji">🛵</span>
+                        <span className="cart-order-label">Delivery</span>
+                      </button>
+                      <button
+                        type="button"
+                        className={`cart-order-btn ${orderType === 'pickup' ? 'active' : ''}`}
+                        onClick={() => setOrderType('pickup')}
+                      >
+                        <span className="cart-order-emoji">🥡</span>
+                        <span className="cart-order-label">Pickup</span>
+                      </button>
+                    </div>
                   </div>
+
+                  {orderType === 'delivery' && (
+                    <>
+                      <div className="cart-form-field">
+                        <label htmlFor="cart-address">Delivery address</label>
+                        <textarea
+                          id="cart-address"
+                          placeholder="Street, area, landmark…"
+                          value={customerAddress}
+                          onChange={(e) => setCustomerAddress(e.target.value)}
+                          rows={2}
+                          required
+                        />
+                      </div>
+                      <div className="cart-form-field">
+                        <label htmlFor="cart-zone">Delivery zone</label>
+                        <select
+                          id="cart-zone"
+                          value={zoneId}
+                          onChange={(e) => setZoneId(e.target.value)}
+                          required
+                        >
+                          <option value="">Select your zone…</option>
+                          {DELIVERY_ZONES.map((z) => (
+                            <option key={z.id} value={z.id}>
+                              {z.label}{z.fee !== null && z.fee > 0 ? ` — ${formatNaira(z.fee)}` : ''}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </>
+                  )}
+
+                  {orderType === 'pickup' && (
+                    <div className="cart-pickup-note">
+                      <span className="cart-pickup-emoji">📍</span>
+                      <div>
+                        <strong>Pickup location</strong>
+                        <p>Ilasamaja, Amuwo Odofin 2, Lagos. We'll confirm your pickup time on WhatsApp.</p>
+                      </div>
+                    </div>
+                  )}
                 </motion.form>
               )}
             </div>
@@ -156,25 +223,53 @@ export default function Cart() {
             {/* Footer */}
             {items.length > 0 && (
               <footer className="cart-footer">
-                <div className="cart-summary">
-                  <span className="cart-summary-lbl">Total</span>
-                  <span className="cart-summary-val">{formatNaira(total)}</span>
-                </div>
-                <button
-                  className="cart-checkout"
-                  onClick={handleCheckout}
-                  disabled={!customerName || !customerAddress}
-                >
-                  <MessageCircle size={18} />
-                  <span>Send order via WhatsApp</span>
-                </button>
-                <button className="cart-clear" onClick={clearCart}>
-                  Clear basket
-                </button>
-                <p className="cart-disclaimer">
-                  Delivery fee calculated based on your location and confirmed on WhatsApp.
-                </p>
-              </footer>
+                  <div className="cart-breakdown">
+                    <div className="cart-breakdown-row">
+                      <span>Subtotal</span>
+                      <span>{formatNaira(total)}</span>
+                    </div>
+                    {orderType === 'delivery' && selectedZone && (
+                      <div className="cart-breakdown-row">
+                        <span>Delivery</span>
+                        <span>
+                          {selectedZone.fee === null
+                            ? 'Confirm on WhatsApp'
+                            : formatNaira(selectedZone.fee)}
+                        </span>
+                      </div>
+                    )}
+                    {orderType === 'pickup' && (
+                      <div className="cart-breakdown-row">
+                        <span>Delivery</span>
+                        <span>Pickup — free</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="cart-summary">
+                    <span className="cart-summary-lbl">Total</span>
+                    <span className="cart-summary-val">
+                      {orderType === 'delivery' && selectedZone && selectedZone.fee === null
+                        ? `${formatNaira(total)}+`
+                        : formatNaira(grandTotal)}
+                    </span>
+                  </div>
+                  <button
+                    className="cart-checkout"
+                    onClick={handleCheckout}
+                    disabled={!isFormValid}
+                  >
+                    <MessageCircle size={18} />
+                    <span>Send order via WhatsApp</span>
+                  </button>
+                  <button className="cart-clear" onClick={clearCart}>
+                    Clear basket
+                  </button>
+                  <p className="cart-disclaimer">
+                    {orderType === 'pickup'
+                      ? 'Pickup time will be confirmed on WhatsApp after you send your order.'
+                      : 'Delivery fee shown above. Your driver will confirm exact fee and time on WhatsApp.'}
+                  </p>
+                </footer>
             )}
           </motion.aside>
         </>
