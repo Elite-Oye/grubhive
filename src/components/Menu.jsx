@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+
 import { Plus, Flame, ExternalLink, Search, LayoutGrid, List,X } from 'lucide-react';
 import { MENU, CATEGORIES } from '../data/menu';
 import { formatNaira, quickOrderLink } from '../data/config';
